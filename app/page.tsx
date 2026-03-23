@@ -11,27 +11,27 @@ const JumpstyleDancer = () => (
     <style>{`
       @keyframes jumpstyle-body {
         0%, 100% { transform: translateY(0); }
-        25%, 75% { transform: translateY(-3px); } /* Легкий прыжок */
+        25%, 75% { transform: translateY(-3px); }
         50% { transform: translateY(-5px); }
       }
       @keyframes jumpstyle-leg-left {
         0%, 100% { transform: rotate(0deg) translate(0,0); }
-        12.5% { transform: rotate(-30deg) translate(2px,-5px); } /* Подъем колена */
-        25% { transform: rotate(40deg) translate(-5px,10px); } /* Резкий кик вперед */
+        12.5% { transform: rotate(-30deg) translate(2px,-5px); }
+        25% { transform: rotate(40deg) translate(-5px,10px); }
         37.5% { transform: rotate(-10deg) translate(0,0); }
-        50% { transform: rotate(0deg) translate(0,0); } /* Опорная нога */
+        50% { transform: rotate(0deg) translate(0,0); }
         62.5% { transform: rotate(10deg) translate(0,2px); }
-        75% { transform: rotate(-20deg) translate(5px,-5px); } /* Резкий кик назад */
+        75% { transform: rotate(-20deg) translate(5px,-5px); }
         87.5% { transform: rotate(0deg) translate(0,0); }
       }
       @keyframes jumpstyle-leg-right {
-        0%, 100% { transform: rotate(0deg) translate(0,0); } /* Опорная нога */
+        0%, 100% { transform: rotate(0deg) translate(0,0); }
         12.5% { transform: rotate(10deg) translate(0,2px); }
-        25% { transform: rotate(-20deg) translate(5px,-5px); } /* Резкий кик назад */
+        25% { transform: rotate(-20deg) translate(5px,-5px); }
         37.5% { transform: rotate(0deg) translate(0,0); }
         50% { transform: rotate(0deg) translate(0,0); }
-        62.5% { transform: rotate(30deg) translate(-2px,-5px); } /* Подъем колена */
-        75% { transform: rotate(-40deg) translate(5px,10px); } /* Резкий кик вперед */
+        62.5% { transform: rotate(30deg) translate(-2px,-5px); }
+        75% { transform: rotate(-40deg) translate(5px,10px); }
         87.5% { transform: rotate(10deg) translate(0,0); }
       }
       @keyframes jumpstyle-arms {
@@ -51,10 +51,10 @@ const JumpstyleDancer = () => (
       <circle cx="50" cy="30" r="10" fill="white" />
       {/* Тело */}
       <line x1="50" y1="40" x2="50" y2="70" stroke="white" strokeWidth="5" strokeLinecap="round" />
-      {/* Руки (упрощенные для минимализма) */}
+      {/* Руки */}
       <line x1="50" y1="50" x2="20" y2="55" className="limb arm" />
       <line x1="50" y1="50" x2="80" y2="55" className="limb arm" />
-      {/* Ноги (делают Jumpstyle) */}
+      {/* Ноги */}
       <line x1="50" y1="70" x2="35" y2="110" className="limb leg-l" />
       <line x1="50" y1="70" x2="65" y2="110" className="limb leg-r" />
     </g>
@@ -146,6 +146,6 @@ export default function Home() {
       <div className="absolute bottom-4 right-4 text-[10px] text-neutral-800 tracking-tight">
         restricted access // unauth usage prohibited
       </div>
-    </style>
+    </main>
   );
 }
