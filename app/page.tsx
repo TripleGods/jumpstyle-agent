@@ -56,67 +56,94 @@ export default function Home() {
   };
 
   return (
-    // Этот блок жестко центрирует ВСЁ на экране по вертикали и горизонтали
-    <main className="flex flex-col items-center justify-center w-screen h-screen bg-black text-white font-sans overflow-hidden">
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      width: '100vw',
+      backgroundColor: '#000000',
+      color: '#ffffff',
+      fontFamily: 'sans-serif',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      top: 0,
+      left: 0
+    }}>
       
-      {/* Контейнер для всех элементов, чтобы они шли ровно друг под другом */}
-      <div className="flex flex-col items-center justify-center space-y-10">
-        
-        {/* Заголовок */}
-        <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter text-center m-0">
-          JUMPSTYLE
-        </h1>
+      <h1 style={{ 
+        fontSize: '4rem', 
+        fontWeight: '900', 
+        margin: '0 0 2rem 0',
+        textAlign: 'center',
+        letterSpacing: '-2px'
+      }}>
+        JUMPSTYLE
+      </h1>
 
-        {/* Контейнер для кнопок соцсетей */}
-        <div className="flex flex-row items-center justify-center space-x-6">
-          {/* Кнопка Twitter (цвет #512da8 - это оригинальный фиолетовый цвет Phantom) */}
-          <a href="https://x.com/schmawo" target="_blank" rel="noopener noreferrer" 
-             className="flex flex-row items-center justify-center space-x-2 px-6 py-3 bg-[#512da8] text-white rounded-md font-bold text-base hover:bg-[#311b92] transition-colors"
-             style={{ textDecoration: 'none' }}>
-            <TwitterIcon /> <span>Twitter</span>
-          </a>
-          
-          {/* Кнопка Telegram */}
-          <a href="https://t.me/jumpstylegods" target="_blank" rel="noopener noreferrer" 
-             className="flex flex-row items-center justify-center space-x-2 px-6 py-3 bg-[#512da8] text-white rounded-md font-bold text-base hover:bg-[#311b92] transition-colors"
-             style={{ textDecoration: 'none' }}>
-            <TelegramIcon /> <span>Telegram</span>
-          </a>
-        </div>
-
-        {/* Кнопка Кошелька */}
-        <div className="flex items-center justify-center">
-          <WalletMultiButton />
-        </div>
-
-        {/* Блок оплаты (центруется вместе со всеми) */}
-        {publicKey && (
-          <div className="flex flex-col items-center w-full max-w-sm mt-4 p-8 border border-neutral-800 rounded-xl bg-[#111] shadow-2xl">
-            <div className="flex justify-between items-center mb-8 border-b border-neutral-800 pb-4 w-full">
-              <span className="text-neutral-400 font-medium">Стоимость</span>
-              <span className="text-white font-bold text-xl">0.1 SOL</span>
-            </div>
-
-            {/* Фиолетовая кнопка оплаты */}
-            <button 
-              onClick={handleAction} 
-              disabled={loading} 
-              className="w-full py-4 bg-[#512da8] text-white rounded-md font-bold text-lg hover:bg-[#311b92] transition-colors disabled:opacity-50 flex justify-center items-center"
-            >
-              {loading ? "Обработка..." : "ОПЛАТИТЬ"}
-            </button>
-            
-            {result !== null && (
-              <div className="mt-8 pt-8 border-t border-neutral-800 text-center w-full">
-                <p className="text-neutral-400 text-sm mb-2">Результат:</p>
-                <div className="text-6xl font-black text-white">
-                  {result}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+      <div style={{
+        display: 'flex',
+        gap: '1rem',
+        marginBottom: '2rem',
+        justifyContent: 'center'
+      }}>
+        <a href="https://x.com/schmawo" target="_blank" rel="noopener noreferrer" style={{
+          display: 'flex', alignItems: 'center', gap: '8px', 
+          padding: '12px 24px', backgroundColor: '#512da8', color: '#ffffff', 
+          textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold'
+        }}>
+          <TwitterIcon /> Twitter
+        </a>
+        <a href="https://t.me/jumpstylegods" target="_blank" rel="noopener noreferrer" style={{
+          display: 'flex', alignItems: 'center', gap: '8px', 
+          padding: '12px 24px', backgroundColor: '#512da8', color: '#ffffff', 
+          textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold'
+        }}>
+          <TelegramIcon /> Telegram
+        </a>
       </div>
-    </main>
+
+      <div style={{ marginBottom: '2rem' }}>
+        <WalletMultiButton />
+      </div>
+
+      {publicKey && (
+        <div style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          padding: '30px', border: '1px solid #333', borderRadius: '16px',
+          backgroundColor: '#111111', width: '90%', maxWidth: '400px'
+        }}>
+          <div style={{
+            display: 'flex', justifyContent: 'space-between', width: '100%',
+            marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px solid #333'
+          }}>
+            <span style={{ color: '#aaaaaa' }}>Стоимость</span>
+            <span style={{ fontWeight: 'bold' }}>0.1 SOL</span>
+          </div>
+
+          <button 
+            onClick={handleAction} 
+            disabled={loading} 
+            style={{
+              width: '100%', padding: '15px', backgroundColor: '#512da8', 
+              color: '#ffffff', border: 'none', borderRadius: '8px', 
+              fontWeight: 'bold', fontSize: '1.1rem', cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.5 : 1
+            }}
+          >
+            {loading ? "Обработка..." : "ОПЛАТИТЬ"}
+          </button>
+          
+          {result !== null && (
+            <div style={{ marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #333', width: '100%', textAlign: 'center' }}>
+              <p style={{ color: '#aaaaaa', fontSize: '0.9rem', margin: '0 0 10px 0' }}>Результат:</p>
+              <div style={{ fontSize: '4rem', fontWeight: '900' }}>{result}</div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
