@@ -3,8 +3,8 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Transaction, Connection } from '@solana/web3.js';
 import { useState } from 'react';
+import { Buffer } from 'buffer';
 
-// Нормальные, красивые иконки (черные для белой кнопки)
 const TwitterIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -56,48 +56,52 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#0a0a0a] text-white font-sans flex flex-col items-center justify-center p-6 text-center">
-      {/* Оверлей сетки удален для чистоты */}
-
-      {/* Центральный контейнер */}
-      <div className="flex flex-col items-center max-w-lg w-full">
+    // Этот блок жестко центрирует ВСЁ на экране по вертикали и горизонтали
+    <main className="flex flex-col items-center justify-center w-screen h-screen bg-black text-white font-sans overflow-hidden">
+      
+      {/* Контейнер для всех элементов, чтобы они шли ровно друг под другом */}
+      <div className="flex flex-col items-center justify-center space-y-10">
         
-        {/* Чистый, большой заголовок */}
-        <h1 className="text-7xl font-black mb-16 text-white tracking-tighter">
+        {/* Заголовок */}
+        <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter text-center m-0">
           JUMPSTYLE
         </h1>
 
-        {/* Кнопки соцсетей (овальные, белые, по центру) */}
-        <div className="flex gap-4 mb-16">
+        {/* Контейнер для кнопок соцсетей */}
+        <div className="flex flex-row items-center justify-center space-x-6">
+          {/* Кнопка Twitter (цвет #512da8 - это оригинальный фиолетовый цвет Phantom) */}
           <a href="https://x.com/schmawo" target="_blank" rel="noopener noreferrer" 
-             className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-bold text-sm hover:bg-gray-200 transition-colors shadow-lg">
-            <TwitterIcon /> Twitter
+             className="flex flex-row items-center justify-center space-x-2 px-6 py-3 bg-[#512da8] text-white rounded-md font-bold text-base hover:bg-[#311b92] transition-colors"
+             style={{ textDecoration: 'none' }}>
+            <TwitterIcon /> <span>Twitter</span>
           </a>
+          
+          {/* Кнопка Telegram */}
           <a href="https://t.me/jumpstylegods" target="_blank" rel="noopener noreferrer" 
-             className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-bold text-sm hover:bg-gray-200 transition-colors shadow-lg">
-            <TelegramIcon /> Telegram
+             className="flex flex-row items-center justify-center space-x-2 px-6 py-3 bg-[#512da8] text-white rounded-md font-bold text-base hover:bg-[#311b92] transition-colors"
+             style={{ textDecoration: 'none' }}>
+            <TelegramIcon /> <span>Telegram</span>
           </a>
         </div>
 
-        {/* Кнопка кошелька (стилизована под овальную белую кнопку) */}
-        {/* Я добавил кастомный класс Tailwind, чтобы сделать стандартную кнопку белой и овальной */}
-        <div className="custom-wallet-button mb-16 border border-neutral-800 hover:border-white transition-colors">
+        {/* Кнопка Кошелька */}
+        <div className="flex items-center justify-center">
           <WalletMultiButton />
         </div>
 
-        {/* Блок оплаты (появляется только если кошелек подключен) */}
+        {/* Блок оплаты (центруется вместе со всеми) */}
         {publicKey && (
-          <div className="p-8 md:p-10 border border-neutral-800 rounded-3xl bg-neutral-900 w-full max-w-sm flex flex-col items-center shadow-2xl">
+          <div className="flex flex-col items-center w-full max-w-sm mt-4 p-8 border border-neutral-800 rounded-xl bg-[#111] shadow-2xl">
             <div className="flex justify-between items-center mb-8 border-b border-neutral-800 pb-4 w-full">
-              <span className="text-neutral-400 font-medium text-sm">Стоимость</span>
+              <span className="text-neutral-400 font-medium">Стоимость</span>
               <span className="text-white font-bold text-xl">0.1 SOL</span>
             </div>
 
-            {/* Белая овальная кнопка оплаты */}
+            {/* Фиолетовая кнопка оплаты */}
             <button 
               onClick={handleAction} 
               disabled={loading} 
-              className="w-full py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+              className="w-full py-4 bg-[#512da8] text-white rounded-md font-bold text-lg hover:bg-[#311b92] transition-colors disabled:opacity-50 flex justify-center items-center"
             >
               {loading ? "Обработка..." : "ОПЛАТИТЬ"}
             </button>
@@ -105,7 +109,7 @@ export default function Home() {
             {result !== null && (
               <div className="mt-8 pt-8 border-t border-neutral-800 text-center w-full">
                 <p className="text-neutral-400 text-sm mb-2">Результат:</p>
-                <div className="text-6xl font-black text-white animate-pulse">
+                <div className="text-6xl font-black text-white">
                   {result}
                 </div>
               </div>
