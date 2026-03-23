@@ -13,8 +13,6 @@ import { useMemo } from 'react';
 export const WalletContextProvider = ({ children }: { children: React.ReactNode }) => {
   const endpoint = "https://rpc.solanatracker.io/public";
   
-  // Здесь мы загружаем список самых популярных адаптеров.
-  // Остальные десятки кошельков Solana подтянет автоматически, если они установлены у человека.
   const wallets = useMemo(() => [
     new PhantomWalletAdapter(),
     new SolflareWalletAdapter(),
@@ -23,14 +21,14 @@ export const WalletContextProvider = ({ children }: { children: React.ReactNode 
     new LedgerWalletAdapter(),
   ], []);
 
-  // Говорим строгому TypeScript "пропустить проверку" для этих компонентов (наш старый хак)
   const ConnectionNode = ConnectionProvider as any;
   const WalletNode = WalletProvider as any;
   const ModalNode = WalletModalProvider as any;
 
   return (
     <ConnectionNode endpoint={endpoint}>
-      <WalletNode wallets={wallets} autoConnect>
+      {/* Убрали autoConnect вот отсюда: */}
+      <WalletNode wallets={wallets}>
         <ModalNode>{children}</ModalNode>
       </WalletNode>
     </ConnectionNode>
